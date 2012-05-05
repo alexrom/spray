@@ -24,6 +24,7 @@ import HttpHeaders._
 import org.specs2.mutable.Specification
 
 class MultipartUnmarshallersSpec extends Specification with DefaultUnmarshallers {
+  val eof = System.getProperty("line.separator")
   
   "The MultipartContentUnmarshaller" should {
     "correctly unmarshal 'multipart/mixed' content with one empty part" in {
@@ -74,7 +75,7 @@ class MultipartUnmarshallersSpec extends Specification with DefaultUnmarshallers
           Seq(
             BodyPart(Nil,
               Some(HttpContent(ContentType(`text/plain`, Some(`US-ASCII`)),
-                "first part, with a trailing linebreak\n"))
+                "first part, with a trailing linebreak" + eof))
             ),
             BodyPart(
               List(

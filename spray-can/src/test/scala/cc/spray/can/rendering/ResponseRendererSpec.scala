@@ -269,7 +269,8 @@ class ResponseRendererSpec extends mutable.Specification with DataTables {
   )
 
   def beRenderedTo(content: String, close: Boolean) = {
-    beEqualTo(content.stripMargin.replace("\n", "\r\n") -> close) ^^ { ctx: Context =>
+    val eol = System.getProperty("line.separator")
+    beEqualTo(content.stripMargin.replace(eol, "\n").replace("\n", "\r\n") -> close) ^^ { ctx: Context =>
       import ctx._
       val renderer = new ResponseRenderer("spray-can/1.0.0", chunkless, 256) {
         override val dateTimeNow = DateTime(2011, 8, 25, 9,10,29) // provide a stable date for testing

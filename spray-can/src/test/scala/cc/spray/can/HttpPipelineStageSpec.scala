@@ -20,7 +20,7 @@ import cc.spray.io.test.PipelineStageTest
 import model.{HttpHeader, HttpResponse, HttpRequest}
 
 trait HttpPipelineStageSpec extends PipelineStageTest {
-
+  val eol = System.getProperty("line.separator")
   def request(content: String = "") = HttpRequest().withBody(content)
 
   def rawRequest(content: String = "") = prep {
@@ -49,5 +49,5 @@ trait HttpPipelineStageSpec extends PipelineStageTest {
        |%s"""
   }.format(content.length, content)
 
-  def prep(s: String) = s.stripMargin.replace("\n", "\r\n")
+  def prep(s: String) = s.stripMargin.replace(eol, "\r\n")
 }

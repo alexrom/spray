@@ -26,6 +26,7 @@ import java.util.Random
 
 class MultipartMarshallersSpec extends Specification with DefaultMarshallers {
   override protected lazy val multipartBoundaryRandom = new Random(0) // fix for stable value
+  val eol = System.getProperty("line.separator")
 
   sequential // require for stable random sequence
 
@@ -35,7 +36,7 @@ class MultipartMarshallersSpec extends Specification with DefaultMarshallers {
         Seq(BodyPart(HttpContent(ContentType(`text/plain`, `US-ASCII`), "")))
       ).toHttpContent mustEqual HttpContent(ContentType(new `multipart/mixed`(Some("YLQguzhR2dR6y5M9vnA5m/bJ"))),
         """|--YLQguzhR2dR6y5M9vnA5m/bJ
-           |--YLQguzhR2dR6y5M9vnA5m/bJ--""".stripMargin.replace("\n", "\r\n")
+           |--YLQguzhR2dR6y5M9vnA5m/bJ--""".stripMargin.replace(eol, "\r\n")
       )
     }
     "correctly marshal multipart content with one part" in {
@@ -52,7 +53,7 @@ class MultipartMarshallersSpec extends Specification with DefaultMarshallers {
            |Content-Type: text/plain; charset=UTF-8
            |
            |test@there.com
-           |--OvAdT7dw6YwDJfQdPrr4mG2n--""".stripMargin.replace("\n", "\r\n")
+           |--OvAdT7dw6YwDJfQdPrr4mG2n--""".stripMargin.replace(eol, "\r\n")
       )
     }
     "correctly marshal multipart content with two different parts" in {
@@ -76,7 +77,7 @@ class MultipartMarshallersSpec extends Specification with DefaultMarshallers {
            |Content-Type: application/octet-stream
            |
            |filecontent
-           |--K81NVUvwtUAjwptiTenvnC+T--""".stripMargin.replace("\n", "\r\n")
+           |--K81NVUvwtUAjwptiTenvnC+T--""".stripMargin.replace(eol, "\r\n")
       )
     }
   }
@@ -95,7 +96,7 @@ class MultipartMarshallersSpec extends Specification with DefaultMarshallers {
            |Content-Type: text/xml
            |
            |<int>42</int>
-           |--WA+a+wgbEuEHsegF8rT18PHQ--""".stripMargin.replace("\n", "\r\n")
+           |--WA+a+wgbEuEHsegF8rT18PHQ--""".stripMargin.replace(eol, "\r\n")
       )
     }
   }
